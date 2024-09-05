@@ -1,5 +1,8 @@
 import express from "express";
 import { AppDataSource } from "./database";
+import { graphqlHTTP } from "express-graphql";
+import { studentSchema } from "./studentSchema";
+import { studentRootValue } from "./studentRootValue";
 
 const app = express();
 
@@ -10,7 +13,15 @@ app.listen(process.env.PORT, async () => {
     if (AppDataSource.isInitialized) {
       console.log("DB connected succesfully");
     }
-  } catch {
-    console.log("DB connection error");
+  } catch (error) {
+    console.error("DB connection error:", error);
   }
 });
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: studentSchema,
+    rootValue: studentRootValue,
+    graphiql: true,
+  })
+);
