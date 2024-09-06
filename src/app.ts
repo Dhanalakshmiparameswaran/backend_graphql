@@ -3,10 +3,19 @@ import { AppDataSource } from "./database";
 import { graphqlHTTP } from "express-graphql";
 import { studentSchema } from "./studentSchema";
 import { studentRootValue } from "./studentRootValue";
+import cors from "cors";
 
 const app = express();
-
-app.listen(process.env.PORT, async () => {
+app.use(cors());
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: studentSchema,
+    rootValue: studentRootValue,
+    graphiql: true,
+  })
+);
+app.listen(process.env.PORT || 4500, async () => {
   console.log(`successfully connected port ${process.env.PORT}`);
   try {
     await AppDataSource.initialize();
@@ -17,11 +26,3 @@ app.listen(process.env.PORT, async () => {
     console.error("DB connection error:", error);
   }
 });
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema: studentSchema,
-    rootValue: studentRootValue,
-    graphiql: true,
-  })
-);
