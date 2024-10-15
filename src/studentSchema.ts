@@ -2,7 +2,7 @@ import { buildSchema } from "graphql";
 
 export const studentSchema = buildSchema(`
   type Query {
-    students: [Student]  # Renamed to Student
+    students: [Student] 
     user(email: String!): User
   }
 
