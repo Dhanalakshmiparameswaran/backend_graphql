@@ -1,13 +1,19 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: "studentList" })
 export class StudentList {
-  @Column({ type: "varchar", length: 255, nullable: false, default: "" })
-  role_no!: string;
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
-  @Column({ type: "varchar", length: 255, nullable: false, default: "" })
-  name!: string;
+  @Column({ type: "varchar", nullable: false })
+  roll_no: string;
 
-  @Column({ type: "varchar", length: 255, nullable: false, default: "" })
-  class!: string;
+  @Column({ type: "varchar", nullable: false })
+  name: string;
+
+  @Column({ type: "varchar", nullable: false })
+  classSection: string;
+
+  @Column({ type: "varchar", nullable: false })
+  mark: string;
 }
