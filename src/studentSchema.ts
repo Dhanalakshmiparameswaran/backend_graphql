@@ -2,11 +2,11 @@ import { buildSchema } from "graphql";
 
 export const studentSchema = buildSchema(`
   type Query {
-    students: [StudentList]
+    students: [Student] 
     user(email: String!): User
   }
 
-  type StudentList {
+  type Student {
     id: ID!
     roll_no: String!
     name: String!
@@ -16,8 +16,10 @@ export const studentSchema = buildSchema(`
 
   type User {
     id: ID!
+    name: String!
     email: String!
     role: UserRole!
+    token: String!
   }
 
   enum UserRole {
@@ -26,11 +28,11 @@ export const studentSchema = buildSchema(`
   }
 
   type Mutation {
-    addNewRow(roll_no: String!, name: String!, classSection: String!, mark: String!): StudentList
-    updateRow(id: ID!, roll_no: String, name: String, classSection: String, mark: String): StudentList
+    addNewRow(roll_no: String!, name: String!, classSection: String!, mark: String!): Student
+    updateRow(id: ID!, roll_no: String, name: String, classSection: String, mark: String): Student
     deleteRow(id: ID!): DeletionResponse
-    signup(email: String!, password: String!, role: UserRole!): User
-    login(email: String!, password: String!): User
+    signup(name: String!, email: String!, password: String!, role: UserRole!): User
+    signIn(email: String!, password: String!): User
   }
 
   type DeletionResponse {
