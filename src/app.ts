@@ -5,7 +5,7 @@ import { studentSchema } from "./studentSchema";
 import { studentRootValue } from "./studentRootValue";
 import cors from "cors";
 
-const app = express();
+export const app = express();
 app.use(cors());
 app.use(
   "/graphql",

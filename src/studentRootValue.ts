@@ -5,8 +5,8 @@ import { StudentList } from "./entity/studentList";
 import { User } from "./entity/user";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret"; 
-const studentRepository = AppDataSource.getRepository(StudentList);
-const userRepository = AppDataSource.getRepository(User);
+export const studentRepository = AppDataSource.getRepository(StudentList);
+export const  userRepository = AppDataSource.getRepository(User);
 
 export const studentRootValue = {
   students: async () => {
@@ -43,7 +43,7 @@ export const studentRootValue = {
       if (!student) {
         throw new Error("Student not found");
       }
-      Object.assign(student, args);  // Using Object.assign for clean updates
+      Object.assign(student, args); 
       return await studentRepository.save(student);
     } catch (error) {
       throw new Error("Error updating the row: " + error);
@@ -64,7 +64,7 @@ export const studentRootValue = {
   },
 
   signup: async (args: {
-    name: string;  // Using primitive type
+    name: string;  
     email: string;
     password: string;
     role: "STUDENT" | "TEACHER";
